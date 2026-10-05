@@ -15,7 +15,7 @@ try:
     con = mycon.connect(
         host="localhost",
         user="root",
-        password="yash12"
+        password="Your_Own_root_pass"
     )
     cur = con.cursor()
 except Exception as e:
