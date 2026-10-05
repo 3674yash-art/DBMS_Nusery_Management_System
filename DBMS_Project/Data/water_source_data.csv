@@ -1,0 +1,21 @@
+Water_ID,Source_Type,Capacity_Litres,Location,Water_Quality
+W001,Borewell,10000,Bhopal Rural MP,Good
+W002,Canal,50000,Sehore MP,Moderate
+W003,Pond,20000,Raisen MP,Good
+W004,River,150000,Vidisha MP,Excellent
+W005,Storage Tank,15000,Bhopal Rural MP,Moderate
+W006,Tube Well,12000,Hoshangabad MP,Good
+W007,Reservoir,300000,Indore MP,Excellent
+W008,Open Well,8000,Dewas MP,Moderate
+W009,Check Dam,60000,Betul MP,Good
+W010,Lake,200000,Bhopal MP,Good
+W011,Canal,45000,Ludhiana Punjab,Moderate
+W012,Borewell,9500,Amritsar Punjab,Good
+W013,River,180000,Kanpur UP,Moderate
+W014,Tube Well,11000,Lucknow UP,Good
+W015,Pond,18000,Varanasi UP,Poor
+W016,Reservoir,250000,Nashik Maharashtra,Excellent
+W017,Borewell,10500,Pune Maharashtra,Good
+W018,Canal,55000,Krishna AP,Good
+W019,River,220000,Guntur AP,Excellent
+W020,Rainwater Harvesting Tank,7000,Bengaluru Rural Karnataka,Moderate

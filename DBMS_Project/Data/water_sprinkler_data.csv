@@ -1,0 +1,21 @@
+Sprinkler_ID,Sprinkler_Type,Capacity_L_per_hr,Coverage_Area_sqm,Flow_Rate_L_per_min,Status
+SP001,Rotary,500,200,8.0,Active
+SP002,Micro-Sprinkler,300,100,5.0,Active
+SP003,Impact Sprinkler,800,350,12.0,Active
+SP004,Drip-Sprinkler Hybrid,200,80,3.0,Maintenance
+SP005,Gun Sprinkler,1200,500,18.0,Active
+SP006,Pop-up Spray,150,60,2.5,Active
+SP007,Oscillating,400,180,6.0,Active
+SP008,Center Pivot,5000,4000,60.0,Active
+SP009,Traveling Gun,3000,2000,45.0,Active
+SP010,Rain Gun,2500,1500,40.0,Inactive
+SP011,Rotary,520,210,8.2,Active
+SP012,Impact Sprinkler,750,330,11.0,Maintenance
+SP013,Micro-Sprinkler,280,95,4.8,Active
+SP014,Gun Sprinkler,1300,520,19.0,Active
+SP015,Pop-up Spray,160,65,2.7,Damaged
+SP016,Oscillating,420,190,6.2,Active
+SP017,Center Pivot,4800,3900,58.0,Active
+SP018,Traveling Gun,2900,1950,44.0,Inactive
+SP019,Drip-Sprinkler Hybrid,210,85,3.1,Active
+SP020,Rain Gun,2600,1600,42.0,Active
