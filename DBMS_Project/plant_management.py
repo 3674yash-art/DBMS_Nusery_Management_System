@@ -5,11 +5,8 @@ import sys
 
 DB_NAME = "plant_management"
 
-# ------------------------------------------------------------
-# DATABASE CONNECTION
-# ------------------------------------------------------------
 
-try:
+try:                                                                               # Mysql an dpython connection
     con = mycon.connect(
         host="localhost",
         user="root",
@@ -21,18 +18,13 @@ except Exception as e:
     sys.exit()
 
 
-# ------------------------------------------------------------
-# CREATE DATABASE AND TABLES
-# ------------------------------------------------------------
 
-def create_database():
+def create_database():                                                             # Database Creation
 
     cur.execute(f"CREATE DATABASE IF NOT EXISTS {DB_NAME}")
     cur.execute(f"USE {DB_NAME}")
 
-    # --------------------------------------------------------
-    # ADMIN
-    # --------------------------------------------------------
+                                                                                   # Tables
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS Admin(
@@ -42,9 +34,7 @@ def create_database():
         )
     """)
 
-    # --------------------------------------------------------
-    # ADDRESS
-    # --------------------------------------------------------
+    
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS Address(
@@ -54,10 +44,6 @@ def create_database():
         )
     """)
 
-    # --------------------------------------------------------
-    # CUSTOMER
-    # Address_id connects Customer with Address
-    # --------------------------------------------------------
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS Customer(
@@ -73,10 +59,7 @@ def create_database():
         )
     """)
 
-    # --------------------------------------------------------
-    # ORDERS
-    # Item_id is VARCHAR because IDs are now P001, S001, SP001
-    # --------------------------------------------------------
+ 
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS Orders(
@@ -94,9 +77,7 @@ def create_database():
         )
     """)
 
-    # --------------------------------------------------------
-    # PLANT
-    # --------------------------------------------------------
+
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS Planter(
@@ -117,9 +98,7 @@ def create_database():
         )
     """)
 
-    # --------------------------------------------------------
-    # SEEDS
-    # --------------------------------------------------------
+
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS Seeds(
@@ -131,9 +110,7 @@ def create_database():
         )
     """)
 
-    # --------------------------------------------------------
-    # SOIL
-    # --------------------------------------------------------
+
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS Soil(
@@ -146,9 +123,7 @@ def create_database():
         )
     """)
 
-    # --------------------------------------------------------
-    # WATER SOURCE
-    # --------------------------------------------------------
+
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS WaterSource(
@@ -160,9 +135,7 @@ def create_database():
         )
     """)
 
-    # --------------------------------------------------------
-    # WATER SPRINKLER
-    # --------------------------------------------------------
+
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS WaterSprinkler(
@@ -177,9 +150,7 @@ def create_database():
         )
     """)
 
-    # --------------------------------------------------------
-    # CROP YIELD
-    # --------------------------------------------------------
+
 
     cur.execute("""
         CREATE TABLE IF NOT EXISTS CropYield(
@@ -199,17 +170,12 @@ def create_database():
     con.commit()
 
     insert_sample_data()
-    
 
-# ------------------------------------------------------------
-# INSERT SAMPLE RECORDS
-# These are added only when the relevant table is empty.
-# Add your full datasets here if required.
-# ------------------------------------------------------------
 
-def insert_sample_data():
 
-    # ================= PLANTS =================
+def insert_sample_data():                                                       # Adding data
+
+   
     cur.execute("SELECT COUNT(*) FROM Plants")
 
     if cur.fetchone()[0] == 0:
@@ -272,14 +238,14 @@ def insert_sample_data():
             ("P049", "Spice", "Coriander", 100, 40),
             ("P050", "Spice", "Cardamom", 50, 200)
         ]
+
         cur.executemany("""
             INSERT INTO Plants
             (plant_id, Type_of_Plant, Plantname, Plant_stock, Plant_cost)
             VALUES (%s, %s, %s, %s, %s)
         """, plants)
 
-
-    # ================= SEEDS =================
+    
     cur.execute("SELECT COUNT(*) FROM Seeds")
 
     if cur.fetchone()[0] == 0:
@@ -349,8 +315,7 @@ def insert_sample_data():
             VALUES (%s, %s, %s, %s, %s)
         """, seeds)
 
-    # ================= CROP YIELD =================
-
+   
     cur.execute("SELECT COUNT(*) FROM CropYield")
 
     if cur.fetchone()[0] == 0:
@@ -388,8 +353,7 @@ def insert_sample_data():
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
         """, crop_yield)
 
-
-    # ================= SOIL =================
+   
     cur.execute("SELECT COUNT(*) FROM Soil")
 
     if cur.fetchone()[0] == 0:
@@ -414,8 +378,7 @@ def insert_sample_data():
             VALUES (%s, %s, %s, %s, %s)
         """, soil)
 
-
-    # ================= WATER SOURCE =================
+    
     cur.execute("SELECT COUNT(*) FROM WaterSource")
 
     if cur.fetchone()[0] == 0:
@@ -440,8 +403,7 @@ def insert_sample_data():
             VALUES (%s, %s, %s, %s, %s)
         """, water)
 
-
-    # ================= WATER SPRINKLER =================
+    
     cur.execute("SELECT COUNT(*) FROM WaterSprinkler")
 
     if cur.fetchone()[0] == 0:
@@ -469,11 +431,11 @@ def insert_sample_data():
 
     con.commit()
 
-# ------------------------------------------------------------
-# GENERIC PRETTY TABLE DISPLAY
-# ------------------------------------------------------------
 
-def show_table(table_name):
+
+
+def show_table(table_name):                                                    # table Viewing
+
     allowed = [
         "Admin", "Customer", "Address", "Orders", "Planter",
         "Plants", "Seeds", "Soil", "WaterSource",
@@ -500,11 +462,13 @@ def show_table(table_name):
 
 
 def show_catalogue():
+
     for name in ["Plants", "Seeds", "Soil", "WaterSource", "WaterSprinkler"]:
         show_table(name)
 
 
 def display_all_tables():
+
     for name in [
         "Admin", "Customer", "Address", "Orders", "Planter",
         "Plants", "Seeds", "Soil", "WaterSource",
@@ -513,11 +477,9 @@ def display_all_tables():
         show_table(name)
 
 
-# ------------------------------------------------------------
-# CUSTOMER ACCOUNT
-# ------------------------------------------------------------
 
-def register_customer():
+
+def register_customer():                                                 # Customer account creation / full details
 
     print("\n--- Create Customer Account ---")
 
@@ -528,8 +490,8 @@ def register_customer():
         print("Name and username are required.")
         return
 
-    # Check username
-    cur.execute("""
+    
+    cur.execute("""                                                       
         SELECT Customer_id
         FROM Customer
         WHERE Customer_username=%s
@@ -539,7 +501,7 @@ def register_customer():
         print("Username already exists.")
         return
 
-    # Address details
+   
     city = input("City: ").strip()
     pincode = input("Pincode: ").strip()
 
@@ -547,7 +509,7 @@ def register_customer():
         print("City and pincode are required.")
         return
 
-    # Password
+  
     password = input("Create password: ")
     confirm_password = input("Confirm password: ")
 
@@ -561,7 +523,7 @@ def register_customer():
 
     try:
 
-        # Create address first
+        
         cur.execute("""
             INSERT INTO Address(City, pincode)
             VALUES (%s, %s)
@@ -569,7 +531,7 @@ def register_customer():
 
         address_id = cur.lastrowid
 
-        # Create customer using Address_id
+        
         cur.execute("""
             INSERT INTO Customer
             (Customer_name,
@@ -600,6 +562,7 @@ def register_customer():
 
 
 def customer_login():
+
     username = input("Username: ").strip()
     password = input("Password: ")
 
@@ -619,8 +582,11 @@ def customer_login():
 
 
 def add_money(customer_id):
+
     try:
+
         amount = float(input("Amount to add: ₹"))
+
         if amount <= 0:
             print("Enter an amount greater than zero.")
             return
@@ -630,7 +596,9 @@ def add_money(customer_id):
             SET Customer_money = Customer_money + %s
             WHERE Customer_id=%s
         """, (amount, customer_id))
+
         con.commit()
+
         print("Money added successfully.")
         show_balance(customer_id)
 
@@ -639,21 +607,23 @@ def add_money(customer_id):
 
 
 def show_balance(customer_id):
+
     cur.execute("""
         SELECT Customer_name, Customer_username, Customer_money
         FROM Customer WHERE Customer_id=%s
     """, (customer_id,))
+
     row = cur.fetchone()
 
     table = PrettyTable(["Customer Name", "Username", "Balance (₹)"])
+
     if row:
         table.add_row(row)
+
     print(table)
 
 
-# ------------------------------------------------------------
-# CUSTOMER VIEW OPTIONS
-# ------------------------------------------------------------
+# view options for costomer
 
 def view_plants():
     show_table("Plants")
@@ -680,6 +650,7 @@ def view_crop_yield():
 
 
 def view_orders(customer_id):
+
     cur.execute("""
         SELECT Order_id, Item_type, Item_name, quantity,
                Total_cost, Order_date
@@ -689,21 +660,21 @@ def view_orders(customer_id):
     """, (customer_id,))
 
     rows = cur.fetchall()
+
     table = PrettyTable([
         "Order ID", "Item Type", "Item Name",
         "Quantity", "Total Cost (₹)", "Date"
     ])
+
     for row in rows:
         table.add_row(row)
 
     print(table)
 
 
-# ------------------------------------------------------------
-# PURCHASE PLANTS, SEEDS, OR SPRINKLERS
-# ------------------------------------------------------------
 
-def place_order(customer_id):
+
+def place_order(customer_id):                                                 # Buying option
 
     print("\n========== Purchase Menu ==========")
     print("1. Plant")
@@ -712,9 +683,7 @@ def place_order(customer_id):
 
     choice = input("Choose item type: ").strip()
 
-    # --------------------------------------------------------
-    # PLANT
-    # --------------------------------------------------------
+   
 
     if choice == "1":
 
@@ -738,9 +707,6 @@ def place_order(customer_id):
         table = "Plants"
         item_type = "Plant"
 
-    # --------------------------------------------------------
-    # SEED
-    # --------------------------------------------------------
 
     elif choice == "2":
 
@@ -764,9 +730,7 @@ def place_order(customer_id):
         table = "Seeds"
         item_type = "Seed"
 
-    # --------------------------------------------------------
-    # WATER SPRINKLER
-    # --------------------------------------------------------
+
 
     elif choice == "3":
 
@@ -797,9 +761,7 @@ def place_order(customer_id):
         print("Invalid choice.")
         return
 
-    # --------------------------------------------------------
-    # QUANTITY
-    # --------------------------------------------------------
+
 
     try:
 
@@ -821,9 +783,7 @@ def place_order(customer_id):
         print("Available stock:", stock)
         return
 
-    # --------------------------------------------------------
-    # CUSTOMER BALANCE
-    # --------------------------------------------------------
+
 
     total = quantity * float(cost)
 
@@ -856,9 +816,6 @@ def place_order(customer_id):
         print("Please add money first.")
         return
 
-    # --------------------------------------------------------
-    # CONFIRM
-    # --------------------------------------------------------
 
     confirm = input("Confirm purchase? (Y/N): ").strip().upper()
 
@@ -867,9 +824,7 @@ def place_order(customer_id):
         print("Purchase cancelled.")
         return
 
-    # --------------------------------------------------------
-    # TRANSACTION
-    # --------------------------------------------------------
+#payment
 
     try:
 
@@ -938,13 +893,14 @@ def place_order(customer_id):
 
         con.rollback()
         print("Order could not be completed:", e)
-        
-# ------------------------------------------------------------
-# CUSTOMER MENU
-# ------------------------------------------------------------
 
-def customer_menu(customer_id):
+
+
+
+def customer_menu(customer_id):                                   #Customer menu
+
     while True:
+
         print("\n========== CUSTOMER AREA ==========")
         print("1. View Plants")
         print("2. View Seeds")
@@ -986,11 +942,9 @@ def customer_menu(customer_id):
             print("Invalid choice.")
 
 
-# ------------------------------------------------------------
-# ADMIN ACCOUNT AND LOGIN
-# ------------------------------------------------------------
 
-def create_admin():
+
+def create_admin():                                            #Admin
 
     admin_id = input("Admin ID: ").strip()
     username = input("Create admin username: ").strip()
@@ -1022,10 +976,9 @@ def create_admin():
         con.rollback()
         print("Could not create admin:", e)
 
-        
-
 
 def admin_login():
+
     username = input("Admin username: ").strip()
     password = input("Admin password: ")
 
@@ -1042,7 +995,9 @@ def admin_login():
 
 
 def admin_access():
+
     while True:
+
         print("\n========== ADMIN SPACE ==========")
         print("1. Existing Admin Login")
         print("2. Create Admin Account")
@@ -1060,11 +1015,10 @@ def admin_access():
             print("Invalid choice.")
 
 
-# ------------------------------------------------------------
-# ADMIN STOCK MANAGEMENT
-# ------------------------------------------------------------
+
 
 def increase_stock():
+
     print("\n--- Increase Stock ---")
     print("1. Plant")
     print("2. Seed")
@@ -1073,7 +1027,9 @@ def increase_stock():
     choice = input("Choose category: ")
 
     try:
+
         if choice == "1":
+
             show_table("Plants")
             item_id = input("Plant ID: ").strip()
             quantity = int(input("Quantity to add: "))
@@ -1089,6 +1045,7 @@ def increase_stock():
             """, (quantity, item_id))
 
         elif choice == "2":
+
             show_table("Seeds")
             item_id = input("Seed ID: ").strip()
             quantity = int(input("Quantity to add: "))
@@ -1104,6 +1061,7 @@ def increase_stock():
             """, (quantity, item_id))
 
         elif choice == "3":
+
             show_table("WaterSprinkler")
             item_id = input("Sprinkler ID: ").strip()
             quantity = int(input("Quantity to add: "))
@@ -1119,30 +1077,36 @@ def increase_stock():
             """, (quantity, item_id))
 
         else:
+
             print("Invalid choice.")
             return
 
         if cur.rowcount == 0:
+
             con.rollback()
             print("Item ID not found.")
+
         else:
+
             con.commit()
             print("Stock updated successfully.")
 
     except ValueError:
+
         con.rollback()
         print("Enter a valid quantity.")
+
     except mycon.Error as e:
+
         con.rollback()
         print("Stock update failed:", e)
 
 
-# ------------------------------------------------------------
-# ADMIN TABLE VIEW
-# ------------------------------------------------------------
 
-def admin_menu():
+def admin_menu():                                             #Admin Menu
+
     while True:
+
         print("\n========== ADMIN MENU ==========")
         print("1. View Plants")
         print("2. View Seeds")
@@ -1178,11 +1142,10 @@ def admin_menu():
             print("Invalid choice.")
 
 
-# ------------------------------------------------------------
-# RESET DATABASE
-# ------------------------------------------------------------
 
-def reset_database():
+
+def reset_database():                                                      # Important before running (Database deletion and creation)
+
     print("\nWARNING: This will permanently delete all saved data.")
     print("This includes accounts, balances, orders, and stock changes.")
 
@@ -1191,10 +1154,12 @@ def reset_database():
     ).strip()
 
     if confirm != "DELETE":
+
         print("Database reset cancelled.")
         return
 
     try:
+
         cur.execute(f"DROP DATABASE IF EXISTS {DB_NAME}")
         con.commit()
 
@@ -1206,16 +1171,17 @@ def reset_database():
         print("Create a new admin and customer account to continue.")
 
     except mycon.Error as e:
+
         con.rollback()
         print("Database reset failed:", e)
 
 
-# ------------------------------------------------------------
-# MAIN MENU
-# ------------------------------------------------------------
 
-def main_menu():
+
+def main_menu():                                                             #Main menu
+
     while True:
+
         print("\n===================================")
         print("      PLANT MANAGEMENT SYSTEM")
         print("===================================")
@@ -1227,9 +1193,11 @@ def main_menu():
         choice = input("Enter choice: ")
 
         if choice == "1":
+
             admin_access()
 
         elif choice == "2":
+
             print("\n1. Existing Customer Login")
             print("2. Create New Customer Account")
             print("3. Back")
@@ -1238,25 +1206,27 @@ def main_menu():
 
             if customer_choice == "1":
                 customer_login()
+
             elif customer_choice == "2":
                 register_customer()
 
         elif choice == "3":
+
             print("Thank you for using the system.")
             break
 
         elif choice == "4":
+
             reset_database()
 
         else:
+
             print("Invalid choice.")
 
 
-# ------------------------------------------------------------
-# START PROGRAM
-# ------------------------------------------------------------
 
-create_database()
+
+create_database()                                                             # Function Calling
 main_menu()
 
 cur.close()
