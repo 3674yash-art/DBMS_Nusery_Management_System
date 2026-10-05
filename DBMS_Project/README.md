@@ -140,7 +140,10 @@ When the program starts, it:
 
 Add the ER diagram image here:
 
-![ER Diagram](screenshots/er_diagram.png)
+![ER Diagram](<img width="1536" height="1024" alt="ER_Diagram_main" src="https://github.com/user-attachments/assets/be41a8f2-fa1a-42ca-9ce0-0c58ac7b29bd" />
+)
+![ER Diagram2](<img width="1312" height="1199" alt="Plant Management system-ER diagram" src="https://github.com/user-attachments/assets/a5d3da91-4124-4587-8d5d-44105ee01254" />
+)
 
 ## Security Note
 
